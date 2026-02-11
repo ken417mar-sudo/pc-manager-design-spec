@@ -37,3 +37,21 @@
 ## 版本与来源
 
 本设计 spec 来自电脑管家桌面端项目，与主工程中的 `design-spec/` 及 Figma 变量/子图层保持一致。
+
+## 推送到新 GitHub 仓库
+
+若需在 GitHub 新建仓库并推送本目录，可：
+
+1. 在 [GitHub 新建仓库](https://github.com/new)，仓库名建议：`pc-manager-design-spec`（或 `电脑管家设计spec`），不勾选「Add a README」。
+2. 在本目录执行：
+
+   ```bash
+   git remote add origin https://github.com/<你的用户名>/pc-manager-design-spec.git
+   git push -u origin main
+   ```
+
+   若已安装 [GitHub CLI](https://cli.github.com/)（`gh`），也可直接：
+
+   ```bash
+   gh repo create pc-manager-design-spec --private --source=. --remote=origin --push
+   ```
