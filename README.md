@@ -1,11 +1,6 @@
 # 电脑管家设计规范（Design Spec）
 
-**仓库地址**：[https://github.com/ken417mar-sudo/------spec](https://github.com/ken417mar-sudo/------spec)  
-建议在 GitHub 仓库 **Settings → General → Repository name** 中将仓库名改为 **`pc-manager-design-spec`**，改完后本地执行：
-
-```bash
-git remote set-url origin https://github.com/ken417mar-sudo/pc-manager-design-spec.git
-```
+**仓库地址**：[https://github.com/ken417mar-sudo/pc-manager-design-spec](https://github.com/ken417mar-sudo/pc-manager-design-spec)
 
 本仓库为**电脑管家桌面端**的设计规范交付物，按 design-spec 规范打包，包含设计说明、设计 Token、切图与字体资源，以及可独立打开的界面预览。
 
@@ -47,4 +42,4 @@ git remote set-url origin https://github.com/ken417mar-sudo/pc-manager-design-sp
 
 ## 仓库说明
 
-代码已推送到 [ken417mar-sudo/------spec](https://github.com/ken417mar-sudo/------spec)。重命名仓库后记得用上文命令更新本地 `origin` 地址。
+代码已推送到 [ken417mar-sudo/pc-manager-design-spec](https://github.com/ken417mar-sudo/pc-manager-design-spec)。
