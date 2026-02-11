@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>电脑管家设计预览</title>
+    <link rel="stylesheet" href="../tokens.css" />
+    <link rel="stylesheet" href="./app.css" />
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <img class="sidebar-logo" src="../assets/slices/logo@2x.png" alt="" />
+        <div class="nav-list">
+          <div class="nav-item">
+            <img class="nav-icon" src="../assets/slices/nav-device@2x.png" alt="" />
+          </div>
+          <div class="nav-item">
+            <img class="nav-icon" src="../assets/slices/nav-feature@2x.png" alt="" />
+          </div>
+          <div class="nav-item active">
+            <img class="nav-icon" src="../assets/slices/nav-security@2x.png" alt="" />
+          </div>
+          <div class="nav-item">
+            <img class="nav-icon" src="../assets/slices/nav-clean@2x.png" alt="" />
+          </div>
+          <div class="nav-item">
+            <img class="nav-icon" src="../assets/slices/nav-driver@2x.png" alt="" />
+          </div>
+          <div class="nav-item">
+            <img class="nav-icon" src="../assets/slices/nav-service@2x.png" alt="" />
+          </div>
+          <div class="nav-item">
+            <img class="nav-icon" src="../assets/slices/nav-store@2x.png" alt="" />
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="topbar-actions">
+            <div class="login">
+              <img src="../assets/slices/user-avatar@2x.png" alt="" />
+              <span>登录</span>
+            </div>
+            <div class="divider"></div>
+            <div class="tools">
+              <img class="tool-icon" src="../assets/slices/tool-grid@2x.png" alt="" />
+              <img class="tool-icon" src="../assets/slices/tool-dropdown@2x.png" alt="" />
+              <img class="tool-icon" src="../assets/slices/tool-minimize@2x.png" alt="" />
+              <img class="tool-icon" src="../assets/slices/tool-close@2x.png" alt="" />
+            </div>
+          </div>
+        </header>
+
+        <section class="content-area">
+          <div class="card defense-card">
+            <div class="defense-titlebar">
+              <div class="defense-title">
+                <img src="../assets/slices/icon-shield@2x.png" alt="" />
+                <span>安全防御系统运行中</span>
+              </div>
+              <button type="button" class="defense-toggle-button" aria-pressed="true"></button>
+            </div>
+
+            <div class="defense-hero">
+              <img
+                class="defense-hero-image"
+                src="../assets/slices/defense-hero@2x.png"
+                alt=""
+              />
+            </div>
+
+            <div class="defense-status">
+              <span>安全防御系统</span>
+              <span>未见异常</span>
+            </div>
+
+            <div class="defense-actions">
+              <div class="defense-action">
+                <img src="../assets/slices/icon-scan@2x.png" alt="" />
+                <span>手动查杀</span>
+              </div>
+              <div class="defense-action">
+                <img src="../assets/slices/icon-quarantine@2x.png" alt="" />
+                <span>隔离区</span>
+              </div>
+              <div class="defense-action">
+                <img src="../assets/slices/icon-trust@2x.png" alt="" />
+                <span>信任区</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="right-column">
+            <div class="card popup-card">
+              <div class="card-title">
+                <div class="title-left">
+                  <img src="../assets/slices/icon-popup@2x.png" alt="" />
+                  <span>弹窗防护中</span>
+                </div>
+                <div class="title-right">管理</div>
+              </div>
+              <div class="popup-stat">近 30 天 累计拦截 29 次</div>
+              <div class="popup-chart">
+                <img src="../assets/slices/line-chart@2x.png" alt="" />
+              </div>
+              <div class="popup-time">
+                <span>12/12</span>
+                <span>12/27</span>
+                <span>1/10</span>
+              </div>
+            </div>
+
+            <div class="card browser-card">
+              <div class="card-title">
+                <div class="title-left">
+                  <img src="../assets/slices/icon-browser@2x.png" alt="" />
+                  <span>浏览器保护中</span>
+                </div>
+                <div class="title-right">管理</div>
+              </div>
+
+              <div class="browser-graphic">
+                <img
+                  class="browser-ring-outer"
+                  src="../assets/slices/browser-ring-outer@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-ring-mid"
+                  src="../assets/slices/browser-ring-mid@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-ring-inner"
+                  src="../assets/slices/browser-ring-inner@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-center"
+                  src="../assets/slices/browser-center@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-shield"
+                  src="../assets/slices/browser-shield@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-dot-1"
+                  src="../assets/slices/browser-dot@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-dot-2"
+                  src="../assets/slices/browser-dot@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-dot-3"
+                  src="../assets/slices/browser-dot@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-home"
+                  src="../assets/slices/browser-home@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-default"
+                  src="../assets/slices/browser-default@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-search"
+                  src="../assets/slices/browser-search@2x.png"
+                  alt=""
+                />
+                <img
+                  class="browser-tab"
+                  src="../assets/slices/browser-tab@2x.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script>
+      const toggle = document.querySelector(".defense-toggle-button");
+      if (toggle) {
+        toggle.addEventListener("click", () => {
+          const pressed = toggle.getAttribute("aria-pressed") === "true";
+          toggle.setAttribute("aria-pressed", String(!pressed));
+        });
+      }
+    </script>
+  </body>
+</html>

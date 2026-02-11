@@ -1,0 +1,84 @@
+# 电脑管家桌面端 — 设计规范（来自 Figma 变量 + 子图层）
+
+> 说明：节点为 `603:2797`（870×600）。已更新 `/切图` 清单与导出脚本。
+
+## 颜色（Colors）
+- 文本/强调色文字：`#000000`
+- 文本/一级文字：`#333333`
+- 文本/二级文字：`#666666`
+- 文本/三级文字：`#999999`
+- 文本/禁用文字：`#bebebe`
+- 文本/按钮文字：`#ffffff`
+- 背景/主题色：`#335eff`
+- 背景/一级卡片：`#ffffff`
+- 背景/蓝色20：`#4d72ff33`
+- 背景/蓝色80：`#4d72ffcc`
+- 描边/一级卡片：`#0000001a`
+- 其他/分割线：`#eeeeee`
+- 图标/一级图标：`#333333`
+- 图标/二级图标：`#808080`
+- 侧边栏背景（补充）：`#f6f6f6`
+
+## 字体（Typography）
+- 展示型标题2：`HYQiHei` / 20 / 650 / line-height 100
+- 二级内容：`Microsoft YaHei` / 14 / 400 / line-height 22
+- 三级内容：`HYQiHei` / 12 / 550 / line-height 20
+
+字体文件：
+- `src/renderer/assets/fonts/HYQiHei_65S.ttf`
+- `src/renderer/assets/fonts/HYQiHei_55S.ttf`
+
+## 圆角（Radius）
+- 2 / 6 / 8 / 12 / 16 / 20 / 1000
+
+## 间距（Spacing）
+- 44
+
+## 阴影（Shadow）
+- 主容器阴影：`0 6 12 0 rgba(51, 64, 81, 0.08)`
+
+## 待补充
+- 若需 1x 素材可在导出脚本中追加 scale=1
+
+## `/切图` 切图清单（按节点）
+> 导出脚本会按以下节点导出 PNG 2x/3x 并保存到 `src/renderer/assets/slices/`
+
+- `603:1696` logo/切图 → `logo@2x.png`, `logo@3x.png`
+- `603:1692` icon/导航/设备状态/切图 → `nav-device@2x.png`, `nav-device@3x.png`
+- `603:1688` icon/导航/特色功能/切图 → `nav-feature@2x.png`, `nav-feature@3x.png`
+- `603:1684` icon/导航/安全防护/切图 → `nav-security@2x.png`, `nav-security@3x.png`
+- `603:1680` icon/导航/空间清理/切图 → `nav-clean@2x.png`, `nav-clean@3x.png`
+- `603:1676` icon/导航/原厂驱动/切图 → `nav-driver@2x.png`, `nav-driver@3x.png`
+- `603:1672` icon/导航/联想服务/切图 → `nav-service@2x.png`, `nav-service@3x.png`
+- `603:1668` icon/导航/软件商店/切图 → `nav-store@2x.png`, `nav-store@3x.png`
+- `604:2916` icon/头像/切图 → `user-avatar@2x.png`, `user-avatar@3x.png`
+- `603:2854` icon/工具栏/切图 → `tool-grid@2x.png`, `tool-grid@3x.png`
+- `603:2859` icon/下拉/切图 → `tool-dropdown@2x.png`, `tool-dropdown@3x.png`
+- `603:2865` icon/最小化/切图 → `tool-minimize@2x.png`, `tool-minimize@3x.png`
+- `603:2883` icon/关闭/切图 → `tool-close@2x.png`, `tool-close@3x.png`
+- `603:1804` image/正常状态图/切图 → `defense-hero@2x.png`, `defense-hero@3x.png`
+- `603:1805` 防御配图 → `defense-hero-inner@2x.png`, `defense-hero-inner@3x.png`
+- `603:1781` icon/查杀图标/切图 → `icon-scan@2x.png`, `icon-scan@3x.png`
+- `603:1788` icon/隔离图标/切图 → `icon-quarantine@2x.png`, `icon-quarantine@3x.png`
+- `603:1798` icon/信任图标/切图 → `icon-trust@2x.png`, `icon-trust@3x.png`
+- `604:2969` icon/安全防护/切图 → `icon-shield@2x.png`, `icon-shield@3x.png`
+- `604:2976` icon/弹窗拦截/切图 → `icon-popup@2x.png`, `icon-popup@3x.png`
+- `603:1718` image/保护状态/切图 → `browser-graphic@2x.png`, `browser-graphic@3x.png`
+- `603:1721` icon/浏览器/切图 → `icon-browser@2x.png`, `icon-browser@3x.png`
+
+额外非 `/切图` 但用于还原的资源：
+
+- `603:1757` 折线图/折线区域 → `line-chart@2x.png`, `line-chart@3x.png`
+
+## 导出脚本
+运行方式：
+
+```
+FIGMA_TOKEN=你的token node scripts/export-slices.mjs
+```
+
+或：
+
+```
+FIGMA_TOKEN=你的token npm run export:slices
+```
