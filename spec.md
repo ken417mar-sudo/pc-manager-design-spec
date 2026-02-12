@@ -56,7 +56,7 @@
 - **浏览器保护卡片**：图区 (1,30) 278×191；内层切图绝对定位见 `resources/layout.json` → `browserGraphic.children`（ring-outer/mid/inner、center、shield、dot×3、home、default、search、tab 的 left/top/width/height）。
 
 ## 主界面文案（还原用）
-见 `resources/copy.json`：顶栏「登录」；防御卡片标题「安全防御系统运行中」、状态两行「安全防御系统」「未见异常」、三动作「手动查杀」「隔离区」「信任区」及对应图标；弹窗卡「弹窗防护中」「管理」、统计句、时间三格；浏览器卡「浏览器保护中」「管理」。
+见 `resources/layout.json` → `copy`：顶栏「登录」；防御卡片标题「安全防御系统运行中」、状态两行「安全防御系统」「未见异常」、三动作「手动查杀」「隔离区」「信任区」及对应图标；弹窗卡「弹窗防护中」「管理」、统计句、时间三格；浏览器卡「浏览器保护中」「管理」。
 
 ## `/切图` 切图清单（按节点）
 > 导出脚本会按以下节点导出 PNG 2x/3x 并保存到本仓库 `assets/slices/`（主工程中为 `src/renderer/assets/slices/`）。完整节点 ID 与脚本见 `scripts/export-slices.mjs` 与 `resources/icons.json`。

@@ -1,5 +1,5 @@
 {
-  "source": "主工程 src/renderer/styles/app.css 与 preview/app.css，Figma 603:2797",
+  "source": "主工程 app.css 与 preview 文案，Figma 603:2797。copy 为界面默认文案，供按 spec 还原使用",
   "viewport": { "width": 870, "height": 600, "unit": "px" },
   "appShell": {
     "name": "app-shell",
@@ -184,5 +184,28 @@
       { "class": "browser-tab", "left": 195, "top": 112, "width": 14, "height": 14, "slice": "browser-tab" }
     ],
     "unit": "px"
+  },
+  "copy": {
+    "topbar": { "login": "登录" },
+    "defenseCard": {
+      "title": "安全防御系统运行中",
+      "statusLine1": "安全防御系统",
+      "statusLine2": "未见异常",
+      "actions": [
+        { "label": "手动查杀", "icon": "icon-scan" },
+        { "label": "隔离区", "icon": "icon-quarantine" },
+        { "label": "信任区", "icon": "icon-trust" }
+      ]
+    },
+    "popupCard": {
+      "title": "弹窗防护中",
+      "titleRight": "管理",
+      "stat": "近 30 天 累计拦截 29 次",
+      "timeLabels": ["12/12", "12/27", "1/10"]
+    },
+    "browserCard": {
+      "title": "浏览器保护中",
+      "titleRight": "管理"
+    }
   }
 }

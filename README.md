@@ -15,10 +15,9 @@
 │   ├── 设计规范.md     # 设计规范正文
 │   └── 更新说明.md     # 版本与结构说明
 ├── resources/          # 结构化设计数据
-│   ├── layout.json     # 布局与主区域尺寸
+│   ├── layout.json     # 布局与主区域尺寸、默认文案（copy）
 │   ├── icons.json      # 图标清单与路径
 │   ├── component-states.json  # 组件状态定义
-│   ├── copy.json       # 主界面文案
 │   └── README.md       # 资源说明
 ├── tokens/
 │   └── design-tokens.css  # 设计 Token（CSS 变量）

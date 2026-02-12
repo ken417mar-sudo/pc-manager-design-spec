@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="./spec-only.css" />
 </head>
 <body>
-  <!-- 结构来自 layout.json + copy.json + icons.json，未使用 preview/index.html -->
+  <!-- 结构来自 layout.json（含 copy）+ icons.json，未使用 preview/index.html -->
   <div class="spec-shell">
     <aside class="spec-sidebar">
       <img class="spec-logo" src="../assets/slices/logo@2x.png" alt="" />
@@ -115,7 +115,7 @@
       </div>
     </main>
   </div>
-  <p style="position:fixed;bottom:8px;left:50%;transform:translateX(-50%);margin:0;font-size:12px;color:var(--color-text-tertiary);">仅按 spec.md + tokens.css + layout.json + copy.json + icons.json 还原，未使用 preview/</p>
+  <p style="position:fixed;bottom:8px;left:50%;transform:translateX(-50%);margin:0;font-size:12px;color:var(--color-text-tertiary);">仅按 spec.md + tokens.css + layout.json（含 copy）+ icons.json 还原，未使用 preview/</p>
   <script>
     document.querySelector(".spec-toggle")?.addEventListener("click", function () {
       this.setAttribute("aria-pressed", this.getAttribute("aria-pressed") === "true" ? "false" : "true");

@@ -1,4 +1,4 @@
-/* 仅从 spec 还原：tokens.css + layout.json + copy.json + component-states，未使用 preview/app.css */
+/* 仅从 spec 还原：tokens.css + layout.json（含 copy）+ component-states，未使用 preview/app.css */
 @font-face {
   font-family: "HYQiHei";
   src: url("../assets/fonts/HYQiHei_65S.ttf") format("truetype");
