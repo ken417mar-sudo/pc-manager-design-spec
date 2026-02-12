@@ -1,0 +1,19 @@
+{
+  "source": "电脑管家设计规范",
+  "components": {
+    "nav-item": {
+      "default": { "opacity": 1 },
+      "active": { "opacity": 1, "indicator": "theme" },
+      "hover": { "opacity": 0.85 }
+    },
+    "defense-toggle": {
+      "on": { "background": "var(--color-bg-theme)" },
+      "off": { "background": "var(--color-divider)" }
+    },
+    "button-primary": {
+      "default": { "background": "var(--color-bg-theme)", "color": "var(--color-text-button)" },
+      "hover": { "opacity": 0.9 },
+      "disabled": { "opacity": 0.5 }
+    }
+  }
+}
