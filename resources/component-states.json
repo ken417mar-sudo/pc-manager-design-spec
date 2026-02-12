@@ -1,14 +1,18 @@
 {
-  "source": "电脑管家设计规范",
+  "source": "电脑管家设计规范，与 preview/app.css 一致",
   "components": {
     "nav-item": {
       "default": { "opacity": 1 },
-      "active": { "opacity": 1, "indicator": "theme" },
+      "active": { "opacity": 1, "background": "var(--color-bg-primary)" },
       "hover": { "opacity": 0.85 }
     },
     "defense-toggle": {
-      "on": { "background": "var(--color-bg-theme)" },
-      "off": { "background": "var(--color-divider)" }
+      "on": { "background": "var(--color-bg-theme)", "knobTranslateX": "18px" },
+      "off": { "background": "var(--color-text-disabled)" },
+      "knob": { "size": "14px", "offset": "2px", "background": "var(--color-text-button)", "transition": "transform 0.2s ease" }
+    },
+    "card-title-right": {
+      "color": "var(--color-bg-theme)"
     },
     "button-primary": {
       "default": { "background": "var(--color-bg-theme)", "color": "var(--color-text-button)" },

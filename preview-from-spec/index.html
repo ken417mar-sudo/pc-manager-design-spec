@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>电脑管家 — 仅按 spec 还原</title>
+  <link rel="stylesheet" href="../tokens.css" />
+  <link rel="stylesheet" href="./spec-only.css" />
+</head>
+<body>
+  <!-- 结构来自 layout.json + copy.json + icons.json，未使用 preview/index.html -->
+  <div class="spec-shell">
+    <aside class="spec-sidebar">
+      <img class="spec-logo" src="../assets/slices/logo@2x.png" alt="" />
+      <nav class="spec-nav-list">
+        <div class="spec-nav-item"><img class="spec-nav-icon" src="../assets/slices/nav-device@2x.png" alt="" /></div>
+        <div class="spec-nav-item"><img class="spec-nav-icon" src="../assets/slices/nav-feature@2x.png" alt="" /></div>
+        <div class="spec-nav-item active"><img class="spec-nav-icon" src="../assets/slices/nav-security@2x.png" alt="" /></div>
+        <div class="spec-nav-item"><img class="spec-nav-icon" src="../assets/slices/nav-clean@2x.png" alt="" /></div>
+        <div class="spec-nav-item"><img class="spec-nav-icon" src="../assets/slices/nav-driver@2x.png" alt="" /></div>
+        <div class="spec-nav-item"><img class="spec-nav-icon" src="../assets/slices/nav-service@2x.png" alt="" /></div>
+        <div class="spec-nav-item"><img class="spec-nav-icon" src="../assets/slices/nav-store@2x.png" alt="" /></div>
+      </nav>
+    </aside>
+    <main class="spec-main">
+      <header class="spec-topbar">
+        <div class="spec-login">
+          <img src="../assets/slices/user-avatar@2x.png" alt="" />
+          <span>登录</span>
+        </div>
+        <div class="spec-divider"></div>
+        <div class="spec-tools">
+          <img class="spec-tool-icon" src="../assets/slices/tool-grid@2x.png" alt="" />
+          <img class="spec-tool-icon" src="../assets/slices/tool-dropdown@2x.png" alt="" />
+          <img class="spec-tool-icon" src="../assets/slices/tool-minimize@2x.png" alt="" />
+          <img class="spec-tool-icon" src="../assets/slices/tool-close@2x.png" alt="" />
+        </div>
+      </header>
+      <div class="spec-content">
+        <div class="spec-card spec-defense-card">
+          <div class="spec-defense-titlebar">
+            <div class="spec-defense-title">
+              <img src="../assets/slices/icon-shield@2x.png" alt="" />
+              <span>安全防御系统运行中</span>
+            </div>
+            <button type="button" class="spec-toggle" aria-pressed="true"></button>
+          </div>
+          <div class="spec-defense-hero">
+            <img src="../assets/slices/defense-hero@2x.png" alt="" />
+          </div>
+          <div class="spec-defense-status">
+            <span>安全防御系统</span>
+            <span>未见异常</span>
+          </div>
+          <div class="spec-defense-actions">
+            <div class="spec-defense-action">
+              <img src="../assets/slices/icon-scan@2x.png" alt="" />
+              <span>手动查杀</span>
+            </div>
+            <div class="spec-defense-action">
+              <img src="../assets/slices/icon-quarantine@2x.png" alt="" />
+              <span>隔离区</span>
+            </div>
+            <div class="spec-defense-action">
+              <img src="../assets/slices/icon-trust@2x.png" alt="" />
+              <span>信任区</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="spec-right">
+          <div class="spec-card spec-popup-card">
+            <div class="spec-card-title">
+              <div class="spec-title-left">
+                <img src="../assets/slices/icon-popup@2x.png" alt="" />
+                <span>弹窗防护中</span>
+              </div>
+              <div class="spec-title-right">管理</div>
+            </div>
+            <div class="spec-popup-stat">近 30 天 累计拦截 29 次</div>
+            <div class="spec-popup-chart">
+              <img src="../assets/slices/line-chart@2x.png" alt="" />
+            </div>
+            <div class="spec-popup-time">
+              <span>12/12</span>
+              <span>12/27</span>
+              <span>1/10</span>
+            </div>
+          </div>
+
+          <div class="spec-card spec-browser-card">
+            <div class="spec-card-title">
+              <div class="spec-title-left">
+                <img src="../assets/slices/icon-browser@2x.png" alt="" />
+                <span>浏览器保护中</span>
+              </div>
+              <div class="spec-title-right">管理</div>
+            </div>
+            <div class="spec-browser-graphic">
+              <img class="spec-browser-ring-outer" src="../assets/slices/browser-ring-outer@2x.png" alt="" />
+              <img class="spec-browser-ring-mid" src="../assets/slices/browser-ring-mid@2x.png" alt="" />
+              <img class="spec-browser-ring-inner" src="../assets/slices/browser-ring-inner@2x.png" alt="" />
+              <img class="spec-browser-center" src="../assets/slices/browser-center@2x.png" alt="" />
+              <img class="spec-browser-shield" src="../assets/slices/browser-shield@2x.png" alt="" />
+              <img class="spec-browser-dot-1" src="../assets/slices/browser-dot@2x.png" alt="" />
+              <img class="spec-browser-dot-2" src="../assets/slices/browser-dot@2x.png" alt="" />
+              <img class="spec-browser-dot-3" src="../assets/slices/browser-dot@2x.png" alt="" />
+              <img class="spec-browser-home" src="../assets/slices/browser-home@2x.png" alt="" />
+              <img class="spec-browser-default" src="../assets/slices/browser-default@2x.png" alt="" />
+              <img class="spec-browser-search" src="../assets/slices/browser-search@2x.png" alt="" />
+              <img class="spec-browser-tab" src="../assets/slices/browser-tab@2x.png" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <p style="position:fixed;bottom:8px;left:50%;transform:translateX(-50%);margin:0;font-size:12px;color:var(--color-text-tertiary);">仅按 spec.md + tokens.css + layout.json + copy.json + icons.json 还原，未使用 preview/</p>
+  <script>
+    document.querySelector(".spec-toggle")?.addEventListener("click", function () {
+      this.setAttribute("aria-pressed", this.getAttribute("aria-pressed") === "true" ? "false" : "true");
+    });
+  </script>
+</body>
+</html>
