@@ -18,6 +18,7 @@
 │   ├── layout.json     # 布局与主区域尺寸
 │   ├── icons.json      # 图标清单与路径
 │   ├── component-states.json  # 组件状态定义
+│   ├── copy.json       # 主界面文案
 │   └── README.md       # 资源说明
 ├── tokens/
 │   └── design-tokens.css  # 设计 Token（CSS 变量）
@@ -26,9 +27,10 @@
 ├── assets/
 │   ├── fonts/          # 字体文件（HYQiHei 等）
 │   └── slices/         # 切图资源（@2x / @3x PNG）
-└── preview/            # 静态界面预览
+└── preview-from-spec/  # 仅按 spec 还原的静态预览（layout/copy/icons/tokens）
     ├── index.html      # 在浏览器中打开可查看主界面还原
-    └── app.css         # 预览用样式
+    ├── spec-only.css   # 还原用样式
+    └── README.md       # 说明
 ```
 
 ## 使用方式
@@ -36,12 +38,7 @@
 - **查看规范**：阅读根目录 `spec.md` 或 `documentation/设计规范.md`。
 - **结构化数据**：`resources/` 下为 layout、icons、组件状态等 JSON，可与主工程或 Figma 同步。
 - **接入开发**：在项目中引入 `tokens.css`（或 `tokens/design-tokens.css`），并按 `spec.md` 中的切图清单使用 `assets/slices/` 内资源。
-- **界面预览**：用浏览器直接打开 `preview/index.html`（建议用本地 HTTP 服务，避免部分浏览器对 `file://` 字体与路径的限制），或使用：
-
-  ```bash
-  npx serve .
-  ```
-  然后访问 `http://localhost:3000/preview/`。
+- **界面预览**：用浏览器打开 `preview-from-spec/index.html`（建议用本地 HTTP 服务），或执行 `npx serve .` 后访问 `http://localhost:3000/preview-from-spec/`。
 
 ## 规范说明
 
