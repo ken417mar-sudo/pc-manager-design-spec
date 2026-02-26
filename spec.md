@@ -42,9 +42,7 @@
 - 二级内容：`Microsoft YaHei` / 14 / 400 / line-height 22
 - 三级内容：`HYQiHei` / 12 / 550 / line-height 20
 
-字体文件：
-- `src/renderer/assets/fonts/HYQiHei_65S.ttf`
-- `src/renderer/assets/fonts/HYQiHei_55S.ttf`
+字体文件（本仓库）：`assets/fonts/HYQiHei_65S.ttf`、`assets/fonts/HYQiHei_55S.ttf`
 
 ## 圆角（Radius）
 - 2 / 6 / 8 / 12 / 16 / 20 / 1000

@@ -8,4 +8,4 @@
 | `icons.json` | 切图清单（Figma 节点 ID + 文件名）、资源路径 | 主工程 `scripts/export-slices.mjs` |
 | `component-states.json` | 组件状态定义（导航激活、开关 on/off、卡片标题右、按钮） | 设计约定，与 preview 一致 |
 
-与 `documentation/设计规范.md` 及 `tokens/design-tokens.css` 保持一致；主工程更新后可将对应内容同步回本目录。
+与根目录 `spec.md`、`tokens.css` 保持一致；主工程更新后可将对应内容同步回本目录。

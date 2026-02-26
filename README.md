@@ -9,10 +9,10 @@
 ```
 电脑管家设计spec/
 ├── README.md           # 本说明
-├── spec.md             # 设计规范正文（与 documentation/设计规范.md 一致）
-├── tokens.css          # 设计 Token（与 tokens/design-tokens.css 一致，可直接用于开发）
+├── spec.md             # 设计规范正文（唯一规范源：颜色/字体/切图/导出）
+├── tokens.css          # 设计 Token（唯一 token 源，可直接用于开发）
 ├── documentation/      # 设计文档
-│   ├── 设计规范.md     # 设计规范正文
+│   ├── 设计规范.md     # 规范入口（指向 spec.md）
 │   ├── SPEC-CONSTRAINTS.md  # Spec 约束说明（Token 未覆盖时流程）
 │   ├── 更新说明.md     # 版本与结构说明
 │   └── figma-export-slices-SKILL.md  # 切图脚本用法（figma-export-slices-skill）
@@ -22,7 +22,7 @@
 │   ├── component-states.json  # 组件状态定义
 │   └── README.md       # 资源说明
 ├── tokens/
-│   └── design-tokens.css  # 设计 Token（CSS 变量）
+│   └── design-tokens.css  # 引用根目录 tokens.css（兼容用）
 ├── scripts/
 │   ├── export-slices.mjs   # Figma 切图导出（来自 figma-export-slices-skill，统一用此脚本）
 │   └── export-nav-svg.mjs  # 仅导航栏 SVG 导出（可选）
@@ -44,9 +44,9 @@
 
 ## 使用方式
 
-- **查看规范**：阅读根目录 `spec.md` 或 `documentation/设计规范.md`。
+- **查看规范**：阅读根目录 **`spec.md`**（完整规范与切图清单）；`documentation/设计规范.md` 为入口说明。
 - **结构化数据**：`resources/` 下为 layout、icons、组件状态等 JSON，可与主工程或 Figma 同步。
-- **接入开发**：在项目中引入 `tokens.css`（或 `tokens/design-tokens.css`），并按 `spec.md` 中的切图清单使用 `assets/slices/` 内资源。
+- **接入开发**：引入根目录 **`tokens.css`**（推荐）；若路径需用 `tokens/` 目录可引用 `tokens/design-tokens.css`（其引用根目录 tokens.css），并按 `spec.md` 中的切图清单使用 `assets/slices/` 内资源。
 - **切图导出**：**以后切图统一用** `scripts/export-slices.mjs`（来自 [figma-export-slices-skill](https://github.com/ken417mar-sudo/figma-export-slices-skill)）。Token 放在项目根目录 `.env` 的 `FIGMA_TOKEN`（可复制 `.env.example` 为 `.env` 后填写，`.env` 已加入 .gitignore）。示例：`node scripts/export-slices.mjs --file nyq9YWeE2nC9WoXXu2FfqD --slices-file resources/icons.json --out ./assets/slices --scales 2,3`。更多用法见 `documentation/figma-export-slices-SKILL.md`。
 - **界面预览（推荐在 Cursor 内）**：按 `Cmd+Shift+P` →「运行任务」→ 选择 **「预览（先启动服务，再在 Cursor 内打开）」**，即可在 Cursor 内置 Simple Browser 中查看。若页面未加载出，可再运行一次「预览：在 Cursor 内打开」。以后预览均在 Cursor 内完成即可。
 

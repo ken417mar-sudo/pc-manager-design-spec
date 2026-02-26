@@ -23,7 +23,7 @@
 
 | 用途           | 文件 |
 |----------------|------|
-| 规范正文与约束 | `spec.md` |
-| Token 定义     | `tokens.css`、`tokens/design-tokens.css` |
+| 规范正文与约束 | 根目录 `spec.md` |
+| Token 定义     | 根目录 `tokens.css`（唯一源）；`tokens/design-tokens.css` 仅引用该文件 |
 | 组件状态       | `resources/component-states.json` |
 | Cursor 规则    | `.cursor/rules/spec-and-tokens.mdc` |
