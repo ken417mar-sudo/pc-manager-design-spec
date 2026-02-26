@@ -82,26 +82,18 @@
 - `603:1696` logo/切图 → `logo@2x.png`, `logo@3x.png`
 - **导航图标（SVG + 规范 Token）**：来自设计稿节点 `768:364` 或 `--name-regex 'icon/'` 下 `768:364`，本仓库仅保留 `nav-device.svg` … `nav-store.svg`（见 `scripts/export-nav-svg.mjs` 或 `scripts/export-slices.mjs --discover --node-id 768-364 --name-regex 'icon/'`）。SVG 内 fill 为 `currentColor`，预览中通过 CSS 变量着色。导航 PNG 未入库，可按需用 export-slices + `resources/icons.json` 重新导出。
 - `604:2916` icon/头像/切图 → `user-avatar@2x.png`, `user-avatar@3x.png`
-- `603:2854` icon/工具栏/切图 → `tool-grid@2x.png`, `tool-grid@3x.png`
-- `603:2859` icon/下拉/切图 → `tool-dropdown@2x.png`, `tool-dropdown@3x.png`
-- `603:2865` icon/最小化/切图 → `tool-minimize@2x.png`, `tool-minimize@3x.png`
-- `603:2883` icon/关闭/切图 → `tool-close@2x.png`, `tool-close@3x.png`
+- **tool-* 工具栏图标（右上操作栏）**：与 icon-* 一致，按层导出为 SVG（`scripts/export-icon-svg.mjs`），currentColor + token 着色。清单：`tool-grid.svg`、`tool-dropdown.svg`、`tool-minimize.svg`、`tool-close.svg`（节点见 `resources/icons.json`）。
 - `603:1804` image/正常状态图/切图 → `defense-hero@2x.png`, `defense-hero@3x.png`
 - `603:1805` 防御配图 → `defense-hero-inner@2x.png`, `defense-hero-inner@3x.png`
-- `603:1781` icon/查杀图标/切图 → `icon-scan@2x.png`, `icon-scan@3x.png`
-- `603:1788` icon/隔离图标/切图 → `icon-quarantine@2x.png`, `icon-quarantine@3x.png`
-- `603:1798` icon/信任图标/切图 → `icon-trust@2x.png`, `icon-trust@3x.png`
-- `604:2969` icon/安全防护/切图 → `icon-shield@2x.png`, `icon-shield@3x.png`
-- `604:2976` icon/弹窗拦截/切图 → `icon-popup@2x.png`, `icon-popup@3x.png`
+- **icon-* 图标**：**安全系统（防御卡片）** 标题与操作区四枚使用 PNG：`icon-shield@2x/3x.png`、`icon-scan@2x/3x.png`、`icon-quarantine@2x/3x.png`、`icon-trust@2x/3x.png`（由 `export-slices.mjs` 导出）。其余（弹窗、浏览器卡片）按层导出为 SVG（`scripts/export-icon-svg.mjs`），清单：`icon-popup.svg`、`icon-browser.svg`，使用 `--color-text-tertiary` 与旁文一致。**顶栏工具栏**为 tool-* SVG，使用 **二级图标色** `--color-icon-secondary`。
 - `603:1718` image/保护状态/切图：本仓库使用分解图层（browser-ring-*、browser-center、browser-shield 等），不保留复合图 `browser-graphic`；如需复合图可用 export-slices 按节点 603:1718 导出。
-- `603:1721` icon/浏览器/切图 → `icon-browser@2x.png`, `icon-browser@3x.png`
 
 额外非 `/切图` 但用于还原的资源：
 
 - `603:1757` 折线图/折线区域 → `line-chart@2x.png`, `line-chart@3x.png`
 
 ## 导出脚本
-本仓库已包含主工程的切图导出脚本，输出目录为本仓库 `assets/slices/`。
+本仓库已包含主工程的切图导出脚本，输出目录为本仓库 `assets/slices/`。前缀为 `icon-` 与 `tool-` 的图标使用 `scripts/export-icon-svg.mjs` 按层导出 SVG（currentColor 便于 token 着色）。
 
 运行方式（在**本仓库**根目录）：
 

@@ -76,7 +76,11 @@ body { display: flex; align-items: center; justify-content: center; }
 .spec-login img { width: 24px; height: 24px; }
 .spec-divider { width: 1px; height: 14px; background: var(--color-divider); }
 .spec-tools { display: flex; align-items: center; gap: 20px; }
-.spec-tool-icon { width: 16px; height: 16px; display: block; }
+.spec-tools .spec-icon-svg { width: 16px; height: 16px; mask-size: 16px 16px; -webkit-mask-size: 16px 16px; background-color: var(--color-icon-secondary); }
+.spec-tool-grid { mask-image: url(../assets/slices/tool-grid.svg); -webkit-mask-image: url(../assets/slices/tool-grid.svg); }
+.spec-tool-dropdown { mask-image: url(../assets/slices/tool-dropdown.svg); -webkit-mask-image: url(../assets/slices/tool-dropdown.svg); }
+.spec-tool-minimize { mask-image: url(../assets/slices/tool-minimize.svg); -webkit-mask-image: url(../assets/slices/tool-minimize.svg); }
+.spec-tool-close { mask-image: url(../assets/slices/tool-close.svg); -webkit-mask-image: url(../assets/slices/tool-close.svg); }
 
 .spec-content { width: 790px; height: 536px; position: relative; }
 
@@ -102,6 +106,27 @@ body { display: flex; align-items: center; justify-content: center; }
 }
 .spec-defense-title { display: flex; align-items: center; gap: 6px; font-family: var(--font-content-tertiary-family); font-size: 12px; font-weight: 550; line-height: 20px; color: var(--color-text-tertiary); }
 .spec-defense-title img { width: 14px; height: 14px; display: block; }
+/* icon-* / tool-* 使用 SVG + token 着色（mask + background-color），颜色按规范与 Figma 一致 */
+.spec-icon-svg {
+  display: inline-block;
+  flex-shrink: 0;
+  background-color: var(--color-icon-primary);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+/* 卡片/防御标题：图标与旁文一致用 tertiary */
+.spec-defense-title .spec-icon-svg,
+.spec-card-title .spec-title-left .spec-icon-svg { width: 14px; height: 14px; mask-size: 14px 14px; -webkit-mask-size: 14px 14px; background-color: var(--color-text-tertiary); }
+/* 防御操作区、顶栏工具栏：图标用 primary */
+.spec-defense-action .spec-icon-svg { width: 16px; height: 16px; mask-size: 16px 16px; -webkit-mask-size: 16px 16px; background-color: var(--color-icon-primary); }
+.spec-icon-shield { mask-image: url(../assets/slices/icon-shield.svg); -webkit-mask-image: url(../assets/slices/icon-shield.svg); }
+.spec-icon-scan { mask-image: url(../assets/slices/icon-scan.svg); -webkit-mask-image: url(../assets/slices/icon-scan.svg); }
+.spec-icon-quarantine { mask-image: url(../assets/slices/icon-quarantine.svg); -webkit-mask-image: url(../assets/slices/icon-quarantine.svg); }
+.spec-icon-trust { mask-image: url(../assets/slices/icon-trust.svg); -webkit-mask-image: url(../assets/slices/icon-trust.svg); }
+.spec-icon-popup { mask-image: url(../assets/slices/icon-popup.svg); -webkit-mask-image: url(../assets/slices/icon-popup.svg); }
+.spec-icon-browser { mask-image: url(../assets/slices/icon-browser.svg); -webkit-mask-image: url(../assets/slices/icon-browser.svg); }
 
 .spec-toggle {
   width: 36px;
