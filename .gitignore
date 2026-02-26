@@ -1,6 +1,9 @@
 # macOS
 .DS_Store
 
+# Env (Figma token 等，勿提交)
+.env
+
 # Editor
 *.swp
 *.swo

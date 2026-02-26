@@ -2,9 +2,10 @@
   "source": "电脑管家设计规范，与 preview/app.css 一致",
   "components": {
     "nav-item": {
-      "default": { "opacity": 1 },
-      "active": { "opacity": 1, "background": "var(--color-bg-primary)" },
-      "hover": { "opacity": 0.85 }
+      "default": { "background": "transparent", "iconColor": "var(--color-icon-primary)" },
+      "hover": { "background": "var(--color-bg-hover)", "iconColor": "var(--color-icon-primary)" },
+      "active": { "background": "var(--color-bg-primary)", "iconColor": "var(--color-bg-theme)" },
+      "activeHover": { "background": "var(--color-bg-primary)", "iconColor": "var(--color-bg-theme)" }
     },
     "defense-toggle": {
       "on": { "background": "var(--color-bg-theme)", "knobTranslateX": "18px" },

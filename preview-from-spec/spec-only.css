@@ -42,9 +42,25 @@ body { display: flex; align-items: center; justify-content: center; }
 }
 .spec-logo { width: 30px; height: 36px; display: block; }
 .spec-nav-list { width: 48px; display: flex; flex-direction: column; gap: 6px; }
-.spec-nav-item { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-12); }
+.spec-nav-item {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-12);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+/* 默认：无背景，图标 --color-icon-primary */
+/* 悬停：规范 Token --color-bg-hover（Figma 颜色/其他/hover） */
+.spec-nav-item:hover { background: var(--color-bg-hover); }
+.spec-nav-item:hover .spec-nav-icon { color: var(--color-icon-primary); }
+/* 激活：规范 Token 一级卡片白底 + 主题蓝图标（Figma 颜色/背景/一级卡片） */
 .spec-nav-item.active { background: var(--color-bg-primary); }
-.spec-nav-icon { width: 24px; height: 24px; display: block; }
+.spec-nav-item.active .spec-nav-icon { color: var(--color-bg-theme); }
+/* 激活项悬停：保持激活样式 */
+.spec-nav-item.active:hover { background: var(--color-bg-primary); }
+.spec-nav-item.active:hover .spec-nav-icon { color: var(--color-bg-theme); }
+/* 导航图标：按切图 48×48 显示，currentColor 由 Token 控制 */
+.spec-nav-icon { width: 48px; height: 48px; display: block; color: var(--color-icon-primary); flex-shrink: 0; transition: color 0.15s ease; }
 
 .spec-main { flex: 1; display: flex; flex-direction: column; height: 600px; width: 790px; }
 

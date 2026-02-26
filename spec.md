@@ -2,6 +2,24 @@
 
 > 说明：节点为 `603:2797`（870×600）。已更新 `/切图` 清单与导出脚本。
 
+## Spec 约束（新增/修改必守）
+
+**所有新增与修改必须严格按本规范与 Token 实现。**
+
+1. **实现方式**
+   - 颜色、字体、圆角、间距、阴影、组件尺寸与状态等，一律使用 `tokens.css` 中的 CSS 变量（如 `--color-*`、`--font-*`、`--radius-*` 等），不得写死色值或与规范不一致的数值。
+   - 组件交互状态（默认、悬停、激活、禁用等）以 `spec.md` 与 `resources/component-states.json` 为准，样式引用 Token。
+
+2. **Token 未覆盖时**
+   - 若设计需要某属性（如新颜色、新圆角、新间距）而当前 Token 未覆盖，**必须先向用户确认**该取值或命名，再补充到规范内：
+     - 在 `tokens.css` 中新增对应变量并加简短注释；
+     - 在 `spec.md` 对应章节补充说明；
+     - 若为组件状态，在 `resources/component-states.json` 中补充。
+   - 不得在未确认、未补充规范的前提下自行发明新值或新 Token。
+
+3. **切图与资源**
+   - 切图命名、尺寸、格式以本规范「切图清单」与 `scripts/export-slices.mjs` / `scripts/export-nav-svg.mjs` 为准；图标颜色通过 Token + `currentColor` 等方式由规范控制。
+
 ## 颜色（Colors）
 - 文本/强调色文字：`#000000`
 - 文本/一级文字：`#333333`
@@ -62,13 +80,7 @@
 > 导出脚本会按以下节点导出 PNG 2x/3x 并保存到本仓库 `assets/slices/`（主工程中为 `src/renderer/assets/slices/`）。完整节点 ID 与脚本见 `scripts/export-slices.mjs` 与 `resources/icons.json`。
 
 - `603:1696` logo/切图 → `logo@2x.png`, `logo@3x.png`
-- `603:1692` icon/导航/设备状态/切图 → `nav-device@2x.png`, `nav-device@3x.png`
-- `603:1688` icon/导航/特色功能/切图 → `nav-feature@2x.png`, `nav-feature@3x.png`
-- `603:1684` icon/导航/安全防护/切图 → `nav-security@2x.png`, `nav-security@3x.png`
-- `603:1680` icon/导航/空间清理/切图 → `nav-clean@2x.png`, `nav-clean@3x.png`
-- `603:1676` icon/导航/原厂驱动/切图 → `nav-driver@2x.png`, `nav-driver@3x.png`
-- `603:1672` icon/导航/联想服务/切图 → `nav-service@2x.png`, `nav-service@3x.png`
-- `603:1668` icon/导航/软件商店/切图 → `nav-store@2x.png`, `nav-store@3x.png`
+- **导航图标（SVG + 规范 Token）**：来自设计稿节点 `768:364` 或 `--name-regex 'icon/'` 下 `768:364`，本仓库仅保留 `nav-device.svg` … `nav-store.svg`（见 `scripts/export-nav-svg.mjs` 或 `scripts/export-slices.mjs --discover --node-id 768-364 --name-regex 'icon/'`）。SVG 内 fill 为 `currentColor`，预览中通过 CSS 变量着色。导航 PNG 未入库，可按需用 export-slices + `resources/icons.json` 重新导出。
 - `604:2916` icon/头像/切图 → `user-avatar@2x.png`, `user-avatar@3x.png`
 - `603:2854` icon/工具栏/切图 → `tool-grid@2x.png`, `tool-grid@3x.png`
 - `603:2859` icon/下拉/切图 → `tool-dropdown@2x.png`, `tool-dropdown@3x.png`

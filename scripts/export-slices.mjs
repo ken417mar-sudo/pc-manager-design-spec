@@ -1,59 +1,192 @@
+/**
+ * Figma 切图导出脚本（来自 figma-export-slices-skill）
+ * 支持 --discover、--node-id、--name-regex、自动英文命名与 slices-name-map。
+ * Token 可从环境变量 FIGMA_TOKEN 或项目根目录 .env 读取（.env 已加入 .gitignore）。
+ */
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import process from "node:process";
 
-const FILE_KEY = "nyq9YWeE2nC9WoXXu2FfqD";
-const TOKEN = process.env.FIGMA_TOKEN;
+// 从项目根 .env 加载 FIGMA_TOKEN 等（不依赖 dotenv 包）
+const loadEnv = async () => {
+  const envPath = path.resolve(process.cwd(), ".env");
+  try {
+    const text = await fs.readFile(envPath, "utf8");
+    for (const line of text.split("\n")) {
+      const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$/);
+      if (m && process.env[m[1]] === undefined) {
+        process.env[m[1]] = m[2].replace(/^["']|["']$/g, "").trim();
+      }
+    }
+  } catch {
+    // .env 不存在或不可读则忽略
+  }
+};
 
-if (!TOKEN) {
-  console.error("Missing FIGMA_TOKEN. Example: FIGMA_TOKEN=xxxx node scripts/export-slices.mjs");
-  process.exit(1);
+const args = process.argv.slice(2);
+const hasArg = (name) => args.includes(name);
+const getArg = (name) => {
+  const idx = args.indexOf(name);
+  if (idx === -1) return undefined;
+  return args[idx + 1];
+};
+
+const HELP = `Figma slice exporter (figma-export-slices-skill)
+
+Usage:
+  node scripts/export-slices.mjs --file <FILE_KEY> --out ./assets/slices [options]
+  # 或使用 .env 中的 FIGMA_TOKEN：node scripts/export-slices.mjs --file <KEY> --out ./assets/slices
+
+Options:
+  --token          Figma personal access token (或 set FIGMA_TOKEN / .env)
+  --token-stdin    Read token from stdin (或 set FIGMA_TOKEN_STDIN=1)
+  --file           Figma file key (或 set FIGMA_FILE_KEY)
+  --node-id        Limit discovery to this subtree (e.g. 604:2915 or 604-2915)
+  --slices         JSON string with slices array (或 set FIGMA_SLICES)
+  --slices-file    Path to JSON file with slices array (或 set FIGMA_SLICES_FILE)
+  --discover       Auto-discover nodes to export
+  --name-regex     Regex for node names to export (或 set FIGMA_NAME_REGEX)
+  --page-regex     Regex for page names to scan (或 set FIGMA_PAGE_REGEX)
+  --out            Output directory (或 set OUTPUT_DIR). Default: ./slices
+  --scales         Comma-separated export scales. Default: 2,3
+  --format         png (default) or svg
+  --no-english     Disable auto English naming (keep original names)
+  --name-map       Write name mapping JSON to this path (default: <out>/slices-name-map.json)
+  --help           Show this message
+
+Slices JSON format:
+  [ { "id": "123:456", "name": "logo" }, ... ]
+  或 { "slices": [ ... ] }
+
+Discovery: --discover + --name-regex 按名称匹配；仅 --discover 则导出带 export settings 的节点.
+`;
+
+if (hasArg("--help")) {
+  console.log(HELP);
+  process.exit(0);
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const OUTPUT_DIR = path.resolve(__dirname, "../assets/slices");
+const TOKEN_FROM_ARGS = getArg("--token");
+const TOKEN_STDIN = hasArg("--token-stdin") || process.env.FIGMA_TOKEN_STDIN === "1";
+const FILE_KEY = getArg("--file") || process.env.FIGMA_FILE_KEY;
+const NODE_ID_RAW = getArg("--node-id") || process.env.FIGMA_NODE_ID;
+const NODE_ID = NODE_ID_RAW ? String(NODE_ID_RAW).replace(/-/g, ":") : null;
+const SLICES_RAW = getArg("--slices") || process.env.FIGMA_SLICES;
+const SLICES_FILE = getArg("--slices-file") || process.env.FIGMA_SLICES_FILE;
+const DISCOVER = hasArg("--discover") || process.env.FIGMA_DISCOVER === "1";
+const NAME_REGEX_RAW = getArg("--name-regex") || process.env.FIGMA_NAME_REGEX;
+const PAGE_REGEX_RAW = getArg("--page-regex") || process.env.FIGMA_PAGE_REGEX;
+const OUTPUT_DIR = getArg("--out") || process.env.OUTPUT_DIR || path.resolve(process.cwd(), "slices");
+const FORMAT = getArg("--format") || process.env.FIGMA_FORMAT || "png";
+const SCALES_RAW = getArg("--scales") || process.env.FIGMA_SCALES || "2,3";
+const USE_ENGLISH_NAMES = !hasArg("--no-english") && process.env.FIGMA_NO_ENGLISH !== "1";
+const NAME_MAP_PATH = getArg("--name-map") || process.env.FIGMA_NAME_MAP_PATH || null;
 
-const slices = [
-  { id: "603:1696", name: "logo" },
-  { id: "603:1694", name: "nav-device" },
-  { id: "603:1690", name: "nav-feature" },
-  { id: "603:1686", name: "nav-security" },
-  { id: "603:1682", name: "nav-clean" },
-  { id: "603:1678", name: "nav-driver" },
-  { id: "603:1674", name: "nav-service" },
-  { id: "603:1670", name: "nav-store" },
-  { id: "604:2916", name: "user-avatar" },
-  { id: "603:2854", name: "tool-grid" },
-  { id: "603:2859", name: "tool-dropdown" },
-  { id: "603:2865", name: "tool-minimize" },
-  { id: "603:2883", name: "tool-close" },
-  { id: "603:1804", name: "defense-hero" },
-  { id: "639:1559", name: "icon-scan" },
-  { id: "639:1565", name: "icon-quarantine" },
-  { id: "639:1571", name: "icon-trust" },
-  { id: "604:2969", name: "icon-shield" },
-  { id: "612:433", name: "toggle-on" },
-  { id: "612:420", name: "toggle-off" },
-  { id: "604:2976", name: "icon-popup" },
-  { id: "603:1718", name: "browser-graphic" },
-  { id: "603:1721", name: "icon-browser" },
-  { id: "603:1725", name: "browser-ring-outer" },
-  { id: "603:1726", name: "browser-ring-mid" },
-  { id: "603:1727", name: "browser-ring-inner" },
-  { id: "603:1728", name: "browser-center" },
-  { id: "603:1730", name: "browser-shield" },
-  { id: "603:1733", name: "browser-dot" },
-  { id: "603:1734", name: "browser-home" },
-  { id: "603:1738", name: "browser-default" },
-  { id: "603:1741", name: "browser-search" },
-  { id: "603:1747", name: "browser-tab" },
-  { id: "603:1757", name: "line-chart" },
-];
+const parseSlices = (json) => {
+  const data = JSON.parse(json);
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.slices)) return data.slices;
+  throw new Error("Invalid slices JSON. Expected array or { slices: [...] }.");
+};
 
-const fetchJson = async (url) => {
+const parseRegex = (raw) => {
+  if (!raw) return null;
+  try {
+    return new RegExp(raw);
+  } catch (err) {
+    throw new Error(`Invalid regex '${raw}': ${err.message}`);
+  }
+};
+
+const parseScales = (raw) => {
+  const values = String(raw)
+    .split(",")
+    .map((value) => Number(value.trim()))
+    .filter((value) => Number.isFinite(value) && value > 0);
+  if (values.length === 0) {
+    throw new Error("Invalid scales. Example: --scales 2,3");
+  }
+  return values;
+};
+
+// 常见设计/UI 中文 → 英文（用于切图文件名）
+const NAME_ZH_TO_EN = {
+  切图: "slice",
+  图标: "icon",
+  查看: "view",
+  发送: "send",
+  分析: "analyze",
+  跑数: "run",
+  导航: "nav",
+  设备状态: "device-status",
+  特色功能: "features",
+  安全防护: "security",
+  空间清理: "cleanup",
+  原厂驱动: "driver",
+  联想服务: "service",
+  软件商店: "store",
+  头像: "avatar",
+  工具栏: "toolbar",
+  下拉: "dropdown",
+  最小化: "minimize",
+  关闭: "close",
+  弹窗拦截: "popup-block",
+  查杀图标: "scan-icon",
+  隔离图标: "quarantine-icon",
+  信任图标: "trust-icon",
+  浏览器: "browser",
+  保护状态: "protection",
+  状态: "status",
+  图片: "image",
+  logo: "logo",
+  icon: "icon",
+  image: "image",
+};
+
+const toEnglishSegment = (segment) => {
+  const s = String(segment).trim();
+  if (!s) return "";
+  const en = NAME_ZH_TO_EN[s];
+  if (en) return en;
+  if (/^[a-zA-Z0-9_-]+$/.test(s)) return s.toLowerCase();
+  return s;
+};
+
+const toEnglishName = (rawName) => {
+  if (!rawName || !USE_ENGLISH_NAMES) return rawName;
+  const parts = String(rawName)
+    .split(/[-/\s]+/)
+    .map(toEnglishSegment)
+    .filter(Boolean);
+  return parts.join("-") || rawName;
+};
+
+const safeName = (name, fallback) => {
+  const base = String(name || "")
+    .trim()
+    .replace(/[\\/]/g, "-")
+    .replace(/[<>:"|?*]/g, "")
+    .replace(/\s+/g, "-");
+  return base || fallback;
+};
+
+const uniquify = (names, base) => {
+  const count = (names.get(base) || 0) + 1;
+  names.set(base, count);
+  return count === 1 ? base : `${base}-${count}`;
+};
+
+const readStdin = async () => {
+  const chunks = [];
+  for await (const chunk of process.stdin) {
+    chunks.push(chunk);
+  }
+  return Buffer.concat(chunks).toString("utf8").trim();
+};
+
+const fetchJson = async (url, token) => {
   const res = await fetch(url, {
-    headers: { "X-Figma-Token": TOKEN },
+    headers: { "X-Figma-Token": token },
   });
   if (!res.ok) {
     const text = await res.text();
@@ -72,22 +205,104 @@ const downloadFile = async (url, targetPath) => {
   await fs.writeFile(targetPath, Buffer.from(arrayBuffer));
 };
 
-const exportScale = async (scale) => {
+const discoverSlices = async (token) => {
+  const nameRegex = parseRegex(NAME_REGEX_RAW);
+  const pageRegex = parseRegex(PAGE_REGEX_RAW);
+  const found = [];
+
+  const shouldExport = (node) => {
+    if (node.type === "DOCUMENT" || node.type === "CANVAS") return false;
+    if (nameRegex) return nameRegex.test(node.name || "");
+    return Array.isArray(node.exportSettings) && node.exportSettings.length > 0;
+  };
+
+  const walk = (node) => {
+    if (!node) return;
+    if (shouldExport(node)) {
+      found.push({ id: node.id, name: node.name || "" });
+    }
+    if (Array.isArray(node.children)) {
+      node.children.forEach(walk);
+    }
+  };
+
+  if (NODE_ID) {
+    const nodeIdParam = NODE_ID.replace(/:/g, "-");
+    const nodesRes = await fetchJson(
+      `https://api.figma.com/v1/files/${FILE_KEY}/nodes?ids=${encodeURIComponent(nodeIdParam)}`,
+      token
+    );
+    const nodeData = nodesRes?.nodes?.[NODE_ID] ?? nodesRes?.nodes?.[nodeIdParam];
+    if (!nodeData?.document) {
+      throw new Error(`Node ${NODE_ID} not found or not accessible.`);
+    }
+    walk(nodeData.document);
+  } else {
+    const file = await fetchJson(`https://api.figma.com/v1/files/${FILE_KEY}`, token);
+    const pages = file?.document?.children || [];
+    const targets = pageRegex ? pages.filter((page) => pageRegex.test(page.name || "")) : pages;
+    targets.forEach((page) => walk(page));
+  }
+
+  if (found.length === 0) {
+    const rule = nameRegex ? `name regex '${NAME_REGEX_RAW}'` : "export settings";
+    throw new Error(`No nodes found using ${rule}.`);
+  }
+
+  const seen = new Map();
+  return found.map((node) => {
+    const fallback = `slice-${node.id.replace(/[:]/g, "-")}`;
+    const baseRaw = toEnglishName(node.name || "") || node.name || "";
+    const base = safeName(baseRaw, fallback);
+    const unique = uniquify(seen, base);
+    return { id: node.id, name: unique, originalName: node.name || "" };
+  });
+};
+
+const loadSlices = async (token) => {
+  if (SLICES_FILE) {
+    const absPath = path.isAbsolute(SLICES_FILE) ? SLICES_FILE : path.resolve(process.cwd(), SLICES_FILE);
+    const text = await fs.readFile(absPath, "utf8");
+    const slices = parseSlices(text);
+    return slices.map((s) => ({ ...s, originalName: s.originalName ?? s.name }));
+  }
+  if (SLICES_RAW) {
+    return parseSlices(SLICES_RAW).map((s) => ({ ...s, originalName: s.originalName ?? s.name }));
+  }
+  if (DISCOVER) {
+    return discoverSlices(token);
+  }
+  return undefined;
+};
+
+const validateSlices = (slices) => {
+  if (!Array.isArray(slices) || slices.length === 0) {
+    throw new Error("No slices provided. Use --slices/--slices-file or --discover.");
+  }
+  for (const slice of slices) {
+    if (!slice || typeof slice.id !== "string" || typeof slice.name !== "string") {
+      throw new Error("Each slice must have string fields: id, name.");
+    }
+    if (slice.originalName === undefined) slice.originalName = slice.name;
+  }
+};
+
+const exportScale = async (token, slices, scale) => {
   const ids = slices.map((slice) => slice.id).join(",");
-  const url = `https://api.figma.com/v1/images/${FILE_KEY}?ids=${encodeURIComponent(ids)}&format=png&scale=${scale}`;
-  const data = await fetchJson(url);
+  const url = `https://api.figma.com/v1/images/${FILE_KEY}?ids=${encodeURIComponent(ids)}&format=${FORMAT}&scale=${scale}`;
+  const data = await fetchJson(url, token);
   if (data.err) {
     throw new Error(data.err);
   }
   const images = data.images || {};
 
   for (const slice of slices) {
-    const imageUrl = images[slice.id];
+    const imageUrl = images[slice.id] ?? images[slice.id.replace(":", "-")];
     if (!imageUrl) {
       console.warn(`Missing image URL for ${slice.id} (${slice.name}) at ${scale}x`);
       continue;
     }
-    const filename = `${slice.name}@${scale}x.png`;
+    const filename = `${slice.name}@${scale}x.${FORMAT}`;
     const outPath = path.join(OUTPUT_DIR, filename);
     await downloadFile(imageUrl, outPath);
     console.log(`Saved ${filename}`);
@@ -95,9 +310,44 @@ const exportScale = async (scale) => {
 };
 
 const main = async () => {
+  await loadEnv();
+
+  let token = TOKEN_FROM_ARGS || process.env.FIGMA_TOKEN;
+  if (!token && TOKEN_STDIN) {
+    token = await readStdin();
+  }
+
+  if (!token) {
+    console.error("Missing FIGMA_TOKEN. Use --token, --token-stdin, or set FIGMA_TOKEN (or .env).");
+    console.log(HELP);
+    process.exit(1);
+  }
+  if (!FILE_KEY) {
+    console.error("Missing FIGMA_FILE_KEY. Use --file or set FIGMA_FILE_KEY.");
+    console.log(HELP);
+    process.exit(1);
+  }
+
+  const slices = await loadSlices(token);
+  validateSlices(slices);
+
+  const scales = parseScales(SCALES_RAW);
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
-  await exportScale(2);
-  await exportScale(3);
+
+  for (const scale of scales) {
+    await exportScale(token, slices, scale);
+  }
+
+  const nameMap = slices.map((s) => ({
+    id: s.id,
+    original: s.originalName ?? s.name,
+    english: s.name,
+    files: scales.map((scale) => `${s.name}@${scale}x.${FORMAT}`),
+  }));
+  const mapPath = NAME_MAP_PATH || path.join(OUTPUT_DIR, "slices-name-map.json");
+  await fs.writeFile(mapPath, JSON.stringify(nameMap, null, 2), "utf8");
+  console.log(`Name map written to ${mapPath}`);
+  console.log("FIGMA_SLICES_NAME_MAP=" + JSON.stringify(JSON.stringify(nameMap)));
 };
 
 main().catch((err) => {

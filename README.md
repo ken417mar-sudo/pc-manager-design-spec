@@ -13,7 +13,9 @@
 ├── tokens.css          # 设计 Token（与 tokens/design-tokens.css 一致，可直接用于开发）
 ├── documentation/      # 设计文档
 │   ├── 设计规范.md     # 设计规范正文
-│   └── 更新说明.md     # 版本与结构说明
+│   ├── SPEC-CONSTRAINTS.md  # Spec 约束说明（Token 未覆盖时流程）
+│   ├── 更新说明.md     # 版本与结构说明
+│   └── figma-export-slices-SKILL.md  # 切图脚本用法（figma-export-slices-skill）
 ├── resources/          # 结构化设计数据
 │   ├── layout.json     # 布局与主区域尺寸、默认文案（copy）
 │   ├── icons.json      # 图标清单与路径
@@ -22,7 +24,11 @@
 ├── tokens/
 │   └── design-tokens.css  # 设计 Token（CSS 变量）
 ├── scripts/
-│   └── export-slices.mjs  # Figma 切图导出脚本（从主工程摘出，输出到 assets/slices）
+│   ├── export-slices.mjs   # Figma 切图导出（来自 figma-export-slices-skill，统一用此脚本）
+│   └── export-nav-svg.mjs  # 仅导航栏 SVG 导出（可选）
+├── .cursor/rules/      # Cursor 规则（Spec 与 Token 约束，alwaysApply）
+├── .vscode/
+│   └── tasks.json      # 预览任务（在 Cursor 内打开）
 ├── assets/
 │   ├── fonts/          # 字体文件（HYQiHei 等）
 │   └── slices/         # 切图资源（@2x / @3x PNG）
@@ -32,12 +38,17 @@
     └── README.md       # 说明
 ```
 
+## Spec 约束（新增/修改必守）
+
+**所有新增与修改必须完全按规范与 Token 实现。** 详见 `spec.md` 开头的「Spec 约束」与 `.cursor/rules/spec-and-tokens.mdc`。若某属性 Token 未覆盖，需**用户单独确认**后再补充到 `tokens.css` / `spec.md` / `resources/component-states.json`，不得自行发明新值。
+
 ## 使用方式
 
 - **查看规范**：阅读根目录 `spec.md` 或 `documentation/设计规范.md`。
 - **结构化数据**：`resources/` 下为 layout、icons、组件状态等 JSON，可与主工程或 Figma 同步。
 - **接入开发**：在项目中引入 `tokens.css`（或 `tokens/design-tokens.css`），并按 `spec.md` 中的切图清单使用 `assets/slices/` 内资源。
-- **界面预览**：用浏览器打开 `preview-from-spec/index.html`（建议用本地 HTTP 服务），或执行 `npx serve .` 后访问 `http://localhost:3000/preview-from-spec/`。
+- **切图导出**：**以后切图统一用** `scripts/export-slices.mjs`（来自 [figma-export-slices-skill](https://github.com/ken417mar-sudo/figma-export-slices-skill)）。Token 放在项目根目录 `.env` 的 `FIGMA_TOKEN`（可复制 `.env.example` 为 `.env` 后填写，`.env` 已加入 .gitignore）。示例：`node scripts/export-slices.mjs --file nyq9YWeE2nC9WoXXu2FfqD --slices-file resources/icons.json --out ./assets/slices --scales 2,3`。更多用法见 `documentation/figma-export-slices-SKILL.md`。
+- **界面预览（推荐在 Cursor 内）**：按 `Cmd+Shift+P` →「运行任务」→ 选择 **「预览（先启动服务，再在 Cursor 内打开）」**，即可在 Cursor 内置 Simple Browser 中查看。若页面未加载出，可再运行一次「预览：在 Cursor 内打开」。以后预览均在 Cursor 内完成即可。
 
 ## 规范说明
 

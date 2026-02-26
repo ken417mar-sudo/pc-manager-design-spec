@@ -1,0 +1,32 @@
+---
+description: 所有新增/修改必须按设计规范与 Token 实现；Token 未覆盖时需用户确认并补充到规范
+alwaysApply: true
+---
+
+# Spec 与 Token 约束
+
+本仓库为**电脑管家设计规范**交付物。所有对界面、样式、组件的**新增与修改**必须遵守以下约束。
+
+## 1. 严格按规范与 Token 实现
+
+- **颜色、字体、圆角、间距、阴影、尺寸**：只使用 `tokens.css` 中已定义的 CSS 变量（如 `--color-*`、`--font-*`、`--radius-*`、`--shadow-*` 等）。不得在样式或组件中写死十六进制色值、px 数值等，除非该值已在 `spec.md` 中明确列出且对应 Token 不存在（此时走第 2 步）。
+- **组件状态**（默认、悬停、激活、禁用等）：以 `spec.md` 和 `resources/component-states.json` 为准，实现时引用上述 Token，不臆造新值。
+- **切图与资源**：切图命名、尺寸、格式以 `spec.md` 中「切图清单」及 `scripts/export-slices.mjs`、`scripts/export-nav-svg.mjs` 为准；图标颜色通过 Token + `currentColor` 等方式由规范控制。
+
+## 2. Token 未覆盖时的流程
+
+当设计需要某属性（如新颜色、新圆角、新间距、新状态）而 **当前 `tokens.css` / `spec.md` / `component-states.json` 未覆盖** 时：
+
+1. **先向用户确认**：说明缺少的语义与建议取值（或命名），请用户确认后再实施。
+2. **补充到规范内**：
+   - 在 `tokens.css` 中新增对应变量并加简短注释（说明用途或对应 Figma 变量名）；
+   - 在 `spec.md` 对应章节补充该条说明；
+   - 若为组件状态，在 `resources/component-states.json` 中补充相应状态与 Token 引用。
+3. **不得**在未得到用户确认、未将新值写入规范的前提下，在代码中自行发明新 Token 或写死新数值。
+
+## 3. 参考文件
+
+- 设计规范正文：`spec.md`、`documentation/设计规范.md`
+- Token 定义：`tokens.css`、`tokens/design-tokens.css`
+- 组件状态定义：`resources/component-states.json`
+- 预览与还原样式：`preview-from-spec/spec-only.css`、`preview-from-spec/index.html`
